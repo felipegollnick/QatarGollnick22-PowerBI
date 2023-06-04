@@ -1,0 +1,39 @@
+-- CALCULATED COLUMN TO CALCULATE POINTS SCORED IN A GAME:
+
+---- If the guess was a BANGER, it should return 10 points;
+---- If the goal difference was right and the result was not a tie, 7 points;
+---- If the winner team was right and just one the sides of the scoreboard was right, 5 points;
+---- If guessed the winner team but not any side of the scorebord, 4 points;
+---- If just one the sides of the scoredboard was guessed right, 2 points; 
+---- Else: 0 point
+
+Points = IF(Fact[Game_Happened] = "N", 0, 
+            IF(Fact[Guess_BANG] = 1, 10, 
+              IF(Fact[Guess_Dif] = 1 && Fact[Game_Result] <> "Tie", 7, 
+                IF(Fact[Guess_Result] = 1 && Fact[Guess_Sc_Qty] = 1, 5, 
+                  IF(Fact[[Guess_Result] = 1 && Fact[Guess_Sc_Qty] = 0, 4, 
+                    IF(Fact[Guess_Sc_Qty] = 1, 2, 0)
+                    )
+                  )
+                )
+              ) 
+            )
+            
+            
+-- CONDITIONAL COLUMNS IN POWER QUERY TO RETURN THE GOALS DIFFERENCE AND WINNING TEAM IN THE GUESS AND IN REAL LIFE:
+  
+  Table.AddColumn(#"Previous Step", "Game_Goals_Dif", each [Game_Goals_Team_A] - [Game_Goals_Team_B])
+  
+  Table.AddColumn(#"Previous Step", "Game_Result", 
+  each if [Game_Goals_Dif] > 0 then "Team A Wins" 
+  else if [Game_Goals_Dif] < 0 then "Team B Wins" 
+  else if [Game_Goals_Dif] = 0 then "Tie" 
+  else "ERROR")
+  
+  Table.AddColumn(#"Previous Step", "Guess_Goals_Dif", each [Guess_Goals_Team_A] - [Guess_Goals_Team_B])
+    
+  Table.AddColumn(#"Previous Step", "Guess_Result", 
+  each if [Guess_Goals_Dif] > 0 then "Team A Wins" 
+  else if [Guess_Goals_Dif] < 0 then "Team B Wins" 
+  else if [Guess_Goals_Dif] = 0 then "Tie" 
+  else "ERROR")
