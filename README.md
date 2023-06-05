@@ -1,6 +1,8 @@
 # QatarGollnick22
 A World Cup Predictions Game developed on Power BI
 
+![Qatar Gollnick 22](https://i.ibb.co/cFzwYcB/formul-rio-google.png)
+
 The aim was to develop a full project running mainly on Power BI while having real and brand new data that I have collected from real people.
 Qatar Gollnick 22 happened while the World Cup action unfolded. Results were updated everyday, and so participants were informed about their updated standings and other interesting facts.
 
