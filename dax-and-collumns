@@ -1,39 +1,67 @@
--- CALCULATED COLUMN TO CALCULATE POINTS SCORED IN A GAME:
+-- STEP 1: CONDITIONAL COLUMNS IN POWER QUERY TO RETURN THE GOALS DIFFERENCE AND WINNING TEAM IN THE GUESS AND IN REAL LIFE:
+  
+  Table.AddColumn(#"Previous Step", "Game_Goals_Difference", each [Game_Goals_Team_A] - [Game_Goals_Team_B])
+  
+  Table.AddColumn(#"Previous Step", "Game_Result", 
+  each if [Game_Goals_Difference] > 0 then "Team A Wins" 
+  else if [Game_Goals_Difference] < 0 then "Team B Wins" 
+  else if [Game_Goals_Difference] = 0 then "Tie" 
+  else "ERROR")
+  
+  Table.AddColumn(#"Previous Step", "Guess_Goals_Difference", each [Guess_Goals_Team_A] - [Guess_Goals_Team_B])
+    
+  Table.AddColumn(#"Previous Step", "Guess_Result", 
+  each if [Guess_Goals_Difference] > 0 then "Team A Wins" 
+  else if [Guess_Goals_Difference] < 0 then "Team B Wins" 
+  else if [Guess_Goals_Difference] = 0 then "Tie" 
+  else "ERROR")
+
+
+
+-- STEP 2: CALCULATED COLUMNS TO FIND OUT IF THE PARTICIPANT GUESSED THE GAME RESULTS CORRECTLY (Winning team, goals difference, scoreboards and banger)
+
+Hit_Result =           IF(Fact[Game_Result] = Fact[Guess_Result], 1, 0)
+Hit_Goals_Difference = IF(Fact[Game_Goals_Difference] = Fact[Guess_Goals_Difference], 1, 0)
+Hit_Scoreboard_A =     IF(Fact[Game_Scoreboard_A] = Fact[Guess_Scoreboard_A], 1, 0)       
+Hit_Scoreboard_B =     IF(Fact[Game_Scoreboard_B] = Fact[Guess_Scoreboard_B], 1, 0)
+Hit_Scoreboard_Qty =   [Hit_Scoreboard_A] + [Hit_Scoreboard_B]
+Hit_BANGER =           IF(Fact[Hit_Scoreboard_Qty] = 2, 1, 0)
+
+
+
+-- STEP 3: CALCULATED COLUMN TO CALCULATE POINTS SCORED BY A PARTICIPANT IN A GAME:
 
 ---- If the guess was a BANGER, it should return 10 points;
 ---- If the goal difference was right and the result was not a tie, 7 points;
 ---- If the winner team was right and just one the sides of the scoreboard was right, 5 points;
----- If guessed the winner team but not any side of the scorebord, 4 points;
+---- If participant guessed the winner team but not any side of the scorebord, 4 points;
 ---- If just one the sides of the scoredboard was guessed right, 2 points; 
 ---- Else: 0 point
 
 Points = IF(Fact[Game_Happened] = "N", 0, 
-            IF(Fact[Guess_BANG] = 1, 10, 
-              IF(Fact[Guess_Dif] = 1 && Fact[Game_Result] <> "Tie", 7, 
-                IF(Fact[Guess_Result] = 1 && Fact[Guess_Sc_Qty] = 1, 5, 
-                  IF(Fact[[Guess_Result] = 1 && Fact[Guess_Sc_Qty] = 0, 4, 
-                    IF(Fact[Guess_Sc_Qty] = 1, 2, 0)
+            IF(Fact[Hit_BANGER] = 1, 10, 
+              IF(Fact[Hit_Goals_Difference] = 1 && Fact[Game_Result] <> "Tie", 7, 
+                IF(Fact[Hit_Result] = 1 && Fact[Hit_Scoreboard_Qty] = 1, 5, 
+                  IF(Fact[Hit_Result] = 1 && Fact[Hit_Scoreboard_Qty] = 0, 4, 
+                    IF(Fact[Hit_Scoreboard_Qty] = 1, 2, 0)
                     )
                   )
                 )
               ) 
             )
-            
-            
--- CONDITIONAL COLUMNS IN POWER QUERY TO RETURN THE GOALS DIFFERENCE AND WINNING TEAM IN THE GUESS AND IN REAL LIFE:
-  
-  Table.AddColumn(#"Previous Step", "Game_Goals_Dif", each [Game_Goals_Team_A] - [Game_Goals_Team_B])
-  
-  Table.AddColumn(#"Previous Step", "Game_Result", 
-  each if [Game_Goals_Dif] > 0 then "Team A Wins" 
-  else if [Game_Goals_Dif] < 0 then "Team B Wins" 
-  else if [Game_Goals_Dif] = 0 then "Tie" 
-  else "ERROR")
-  
-  Table.AddColumn(#"Previous Step", "Guess_Goals_Dif", each [Guess_Goals_Team_A] - [Guess_Goals_Team_B])
-    
-  Table.AddColumn(#"Previous Step", "Guess_Result", 
-  each if [Guess_Goals_Dif] > 0 then "Team A Wins" 
-  else if [Guess_Goals_Dif] < 0 then "Team B Wins" 
-  else if [Guess_Goals_Dif] = 0 then "Tie" 
-  else "ERROR")
+
+
+
+-- DAX MEASURES:
+
+---- Calculate the performance percentage from a participant (out of all the points available to score, how many has the parcipant really scored?)
+Performance_% = SUM('Fact'[Points]) / (COUNT('Fact'[Game_ID]) * 10)            // The count was multiplied by 10 because it was the max one could score in a match
+
+---- Calculate the performance percentage from all the the participants, together:
+Performance_%_All = CALCULATE([Performance_%], ALL(Participants[Part_ID]))
+
+---- Find out the players ranking:
+Rank = RANKX(ALL(Participants[Part_Name]), [Tie-Breaker])                      // There was a tie-breaker hierarchy, by categories results
+
+---- Calculate the tie-breaker:
+Tie-Breaker = ([Sum Points] * 10000) + ([Sum Hit_BANGER] * 1000) + ([Sum Hit_Goals_Difference] * 100) + ([Sum Hit_Result] * 10) + [Sum Hit_Scoreboard_Qty]
