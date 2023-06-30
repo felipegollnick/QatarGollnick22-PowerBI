@@ -23,10 +23,13 @@ You can read about the whole developing proccess [on my page on Medium](https://
 
 ### [Click here to check Qatar Gollnick 22!](https://app.powerbi.com/view?r=eyJrIjoiYmY2OWQ1NTYtNzIxNi00Y2YxLWJiNjQtNGUwYTk5ZjAyNTk4IiwidCI6ImM3NjIzYmEwLTVlNzAtNDg2My1iODEwLTEzY2RjNDQyY2RlMiJ9)
 
-Beside of the dashboard you can access on the above URL, I used Flourish to make an interactive data visualization of how the standings unfolded day by day.
+Beside of the dashboard you can access on the above URL, I used Flourish to make an interactive chart of how the standings unfolded day by day. [Click here to see it in action.](https://public.flourish.studio/visualisation/14306171/)
 
-<div class="flourish-embed flourish-chart" data-src="visualisation/14306171"><script src="https://public.flourish.studio/resources/embed.js"></script></div>
+![Day by day standings](https://i.ibb.co/cDKrt4S/Qatar-Gollnick-2022-Github.png)
 
-Updates were daily. But the grand final of the FIFA World Cup is a whole different game (pun intended). For this match, I would award much more points to the participant with the right guess than in the other matches.
-So, on each goal, I updated the participants' standings. Here's another Flourish animation showing how the action unfolded.
+And, for the grand final, as it is the single most important football match out there, I updated the standings after each goal. 
+Luckily, Mbappé and Messi were eager to make history (and a lot of goals), thus bringing a lot of action to the participants [(click here to see the game action)](https://public.flourish.studio/visualisation/14306402/).
 
+![Final](https://i.ibb.co/RTyYLpj/Final-Qatar-Gollnick-2022-Github.png)
+
+![Power BI Standings](https://i.ibb.co/JzMHXsH/standings.jpg)
