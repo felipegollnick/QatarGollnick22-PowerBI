@@ -19,6 +19,14 @@ I needed to do all the steps in a proccess that went far beyond than the just th
 
 I have also designed the logo of the game.
 
-You can read about the whole developing proccess in [my page on Medium](https://datagollnick.medium.com/) (still working in an English version of it)
+You can read about the whole developing proccess [on my page on Medium](https://datagollnick.medium.com/). (still working in an English version of it)
 
 ### [Click here to check Qatar Gollnick 22!](https://app.powerbi.com/view?r=eyJrIjoiYmY2OWQ1NTYtNzIxNi00Y2YxLWJiNjQtNGUwYTk5ZjAyNTk4IiwidCI6ImM3NjIzYmEwLTVlNzAtNDg2My1iODEwLTEzY2RjNDQyY2RlMiJ9)
+
+Beside of the dashboard you can access on the above URL, I used Flourish to make an interactive data visualization of how the standings unfolded day by day.
+
+<div class="flourish-embed flourish-chart" data-src="visualisation/14306171"><script src="https://public.flourish.studio/resources/embed.js"></script></div>
+
+Updates were daily. But the grand final of the FIFA World Cup is a whole different game (pun intended). For this match, I would award much more points to the participant with the right guess than in the other matches.
+So, on each goal, I updated the participants' standings. Here's another Flourish animation showing how the action unfolded.
+
