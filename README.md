@@ -19,6 +19,6 @@ I needed to do all the steps in a proccess that went far beyond than the just th
 
 I have also designed the logo of the game.
 
-You can read about the whole developing proccess in [this blog post on DataGollnick] (my page on Medium)
+You can read about the whole developing proccess in [my page on Medium](https://datagollnick.medium.com/) (still working in an English version of it)
 
 ### [Click here to check Qatar Gollnick 22!](https://app.powerbi.com/view?r=eyJrIjoiYmY2OWQ1NTYtNzIxNi00Y2YxLWJiNjQtNGUwYTk5ZjAyNTk4IiwidCI6ImM3NjIzYmEwLTVlNzAtNDg2My1iODEwLTEzY2RjNDQyY2RlMiJ9)
