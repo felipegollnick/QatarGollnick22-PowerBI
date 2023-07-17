@@ -27,9 +27,9 @@ You can read about the whole developing proccess [on my page on Medium](https://
 
 Beside of the dashboard you can access on the above URL, I used Flourish to make an interactive chart of how the standings unfolded day by day. [Click here to see it in action.](https://public.flourish.studio/visualisation/14306171/)
 
-![Day by day standings](https://i.ibb.co/0J9mkCg/Qatar-Gollnick-2022-Github-2.png)
+![Day by day standings](https://i.imgur.com/mHtLQpB.png)
 
-And, for the grand final, as it is the single most important football match out there, I updated the standings after each goal. 
+And, for the Grand Final, as it is the single most important football match out there, I updated the standings after each goal. 
 Luckily, Mbappé and Messi were eager to make history (and a lot of goals), thus bringing a lot of action to the participants [(click here to see the game action)](https://public.flourish.studio/visualisation/14306402/).
 
 ![Final](https://i.ibb.co/RTyYLpj/Final-Qatar-Gollnick-2022-Github.png)
