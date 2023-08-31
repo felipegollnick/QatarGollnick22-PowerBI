@@ -33,5 +33,3 @@ And, for the Grand Final, as it is the single most important football match out 
 Luckily, Mbappé and Messi were eager to make history (and a lot of goals), thus bringing a lot of action to the participants [(click here to see the game action)](https://public.flourish.studio/visualisation/14306402/).
 
 ![Final](https://i.ibb.co/RTyYLpj/Final-Qatar-Gollnick-2022-Github.png)
-
-![Power BI Standings](https://i.ibb.co/JzMHXsH/standings.jpg)
